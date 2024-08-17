@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkomba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gkomba <<marvin@42.fr> >                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 16:24:30 by gkomba            #+#    #+#             */
-/*   Updated: 2024/05/25 16:37:13 by gkomba           ###   ########.fr       */
+/*   Updated: 2024/08/17 09:00:47 by gkomba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,4 @@ char	*ft_string_dup(char *src)
 	}
 	dest[i] = '\0';
 	return (dest);
-}
-
-void	s_v_i(int *vars)
-{
-	if (vars[2] == 0)
-	{
-		vars[0] = 0;
-		vars[1] = 0;
-		vars[2] = 1;
-	}
 }

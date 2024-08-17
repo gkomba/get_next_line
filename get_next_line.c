@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gkomba <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gkomba <<marvin@42.fr> >                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:29:49 by gkomba            #+#    #+#             */
-/*   Updated: 2024/05/25 16:51:05 by gkomba           ###   ########.fr       */
+/*   Updated: 2024/08/17 09:14:25 by gkomba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ char	*get_next_line(int fd)
 {
 	static char	chr[BUFFER_SIZE];
 	char		str[7000000];
-	static int	vars[3];
+	static int	buffer_readed;
+	static int	buffer_pos;
 	int			i;
 
-	s_v_i(vars);
 	i = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	while (1)
 	{
-		if (vars[0] >= vars[1])
-			if (read_buffer(fd, chr, &vars[1], &vars[0]) <= 0)
+		if (buffer_pos >= buffer_readed)
+			if (read_buffer(fd, chr, &buffer_readed, &buffer_pos) <= 0)
 				break ;
-		str[i++] = chr[vars[0]++];
+		str[i++] = chr[buffer_pos++];
 		if (str[i - 1] == '\n')
 			break ;
 	}
@@ -36,4 +36,18 @@ char	*get_next_line(int fd)
 	if (i == 0)
 		return (NULL);
 	return (ft_string_dup(str));
+}
+
+int main(int ac, char **av)
+{
+	int fd;
+	char *line;
+
+	fd = open(av[1], O_RDONLY);
+	while (line = get_next_line(fd))
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
 }
